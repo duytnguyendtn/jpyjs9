@@ -43,7 +43,7 @@ def js9_helper_server():
         'command': ['node', str(JS9_PATH / "js9Helper.js")],
         'port': 2718,
         'launcher_entry': {
-           'enabled': False,
+           'enabled': True,
         }
     }
 ## ------------------------------------------ ##
