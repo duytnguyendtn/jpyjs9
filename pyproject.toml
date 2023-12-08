@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "nodeenv", "hatch-build-scripts"]
 build-backend = "hatchling.build"
 
 [project]
@@ -37,3 +37,14 @@ path = "jpyjs9/__init__.py"
 
 [tool.hatch.build.targets.sdist]
 exclude = [".git", ".ipynb_checkpoints"]
+
+[[tool.hatch.build.hooks.build-scripts.scripts]]
+out_dir = "src"
+work_dir = "src"
+clean_out_dir = true
+commands = [
+    "nodeenv -p",
+    "git clone -b jupjs9 https://github.com/duytnguyendtn/js9.git"
+]
+artifacts = [
+]
