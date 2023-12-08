@@ -2,15 +2,17 @@
 JS9 wrapper to be used in Jupyter/IPython notebooks.
 Some of the ideas were adopted from jjs9
 """
-from pyjs9 import JS9 as JS9_ 
-import weakref
-import uuid
-import ipywidgets as ipw
-from sidecar import Sidecar
 
 # ignore socketio connection error
 import logging
-logging.getLogger('root').setLevel(logging.ERROR)
+#logging.getLogger('root').setLevel(logging.ERROR)
+import uuid
+import weakref
+
+import ipywidgets as ipw
+from sidecar import Sidecar
+
+from pyjs9 import JS9 as JS9_ 
 
 
 _JS9Refs = {}    
