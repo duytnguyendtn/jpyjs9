@@ -1,3 +1,4 @@
+from pathlib import Path
 
 from jupyter_server.extension.application import ExtensionApp, ExtensionAppJinjaMixin
 from jupyter_server.base.handlers import JupyterHandler, AuthenticatedFileHandler
@@ -6,6 +7,8 @@ from jupyter_server.extension.handler import (
     ExtensionHandlerJinjaMixin,
     ExtensionHandlerMixin,
 )
+
+JS9_PATH =  Path("E:\HEASARC\gitrepos\scieserver-js9\jpyjs9-fork\src\js9")
 
 
 ## ---------------------------------------- ##
@@ -25,7 +28,7 @@ class Js9App(ExtensionAppJinjaMixin, ExtensionApp):
     name = "js9"
     extension_url = "/js9"
     load_other_extensions = True
-    js9web = '/opt/js9-web/'
+    js9web = str(JS9_PATH)
     static_paths = [js9web]
     template_paths = [js9web]
 
