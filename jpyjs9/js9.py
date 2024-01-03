@@ -94,7 +94,7 @@ class JS9(JS9_):
         for k in ['frame_url', 'width', 'height']:
             kwargs.pop(k, None)
         logging.debug(f'Calling parent for {id}')
-        super(JS9, self).__init__(id=f'JS9-{id}', multi=True, *args, **kwargs)
+        super(JS9, self).__init__(id=f'JS9', multi=True, *args, **kwargs)
 
 
     def close(self):
