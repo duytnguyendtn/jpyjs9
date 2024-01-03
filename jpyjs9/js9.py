@@ -103,3 +103,11 @@ class JS9(JS9_):
         if self.sc is not None:
             self.sc.close()
         super(JS9, self).close()
+
+
+    def is_helper_empty(self):
+        try:
+            self.helper()
+        except ValueError: # Make sure to check for specific error
+            return True
+        return False
