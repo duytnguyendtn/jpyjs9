@@ -59,10 +59,15 @@ class JS9(JS9_):
             logger = logging.getLogger()
             logger.setLevel(logging.DEBUG)
 
-        # extra parameter
-        frame_url = kwargs.get('frame_url', '/js9')
-        width  = kwargs.get('width', 600)
-        height = kwargs.get('height', 700)
+        # extra parameters
+        frame_url = kwargs.pop('frame_url', '/js9')
+        width  = kwargs.pop('width', 600)
+        height = kwargs.pop('height', 700)
+
+        # initialize the parent JS9 class
+        # NOTE: Make sure our extra parameters are removed first (see above)
+        logging.debug(f'Calling parent for {id}')
+        super(JS9, self).__init__(id=f'JS9', multi=True, *args, **kwargs)
 
 
         ref = _JS9Refs.get(id, None)
@@ -90,11 +95,7 @@ class JS9(JS9_):
             logging.debug(f'Starting a new instance {id}')
             _JS9Refs[id] = weakref.ref(self)
         
-        # initialize the parent JS9 class, first remove our added keys
-        for k in ['frame_url', 'width', 'height']:
-            kwargs.pop(k, None)
-        logging.debug(f'Calling parent for {id}')
-        super(JS9, self).__init__(id=f'JS9', multi=True, *args, **kwargs)
+
 
 
     def close(self):
