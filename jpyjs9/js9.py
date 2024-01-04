@@ -69,31 +69,36 @@ class JS9(JS9_):
         logging.debug(f'Calling parent for {id}')
         super(JS9, self).__init__(id=f'JS9', multi=True, *args, **kwargs)
 
+        if self.is_helper_empty():
+            logging.debug("Instantiating new frontend")
 
-        ref = _JS9Refs.get(id, None)
-        if ref is not None:
-            logging.debug(f'Recovering instance {id}')
-            ref = ref()
-            logging.debug(f'Recovered instance {id}')
-            
-        # attach the JS9 window
-        html = f"<iframe src='{frame_url}/{id}' width={width} height={height}></iframe>"
-        self.ipw_obj = ipw.widgets.HTML(value = html)
+            ref = _JS9Refs.get(id, None)
+            if ref is not None:
+                logging.debug(f'Recovering instance {id}')
+                ref = ref()
+                logging.debug(f'Recovered instance {id}')
+                
+            # attach the JS9 window
+            html = f"<iframe src='{frame_url}/{id}' width={width} height={height}></iframe>"
+            self.ipw_obj = ipw.widgets.HTML(value = html)
 
-        self.sc = None
-        if side:
-            # open a side window 
-            layout = ipw.Layout(width=f'{width}px', height=f'{height}px')
-            self.sc = Sidecar(title=f'JS9-{id}', layout=layout)
-            with self.sc:
+            self.sc = None
+            if side:
+                # open a side window 
+                layout = ipw.Layout(width=f'{width}px', height=f'{height}px')
+                self.sc = Sidecar(title=f'JS9-{id}', layout=layout)
+                with self.sc:
+                    display(self.ipw_obj)
+            else:
                 display(self.ipw_obj)
+
+
+            if ref is None:
+                logging.debug(f'Starting a new instance {id}')
+                _JS9Refs[id] = weakref.ref(self)
+        
         else:
-            display(self.ipw_obj)
-
-
-        if ref is None:
-            logging.debug(f'Starting a new instance {id}')
-            _JS9Refs[id] = weakref.ref(self)
+            logging.warning("Connecting to existing frontend")
         
 
 
