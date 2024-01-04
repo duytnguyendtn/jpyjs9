@@ -18,8 +18,8 @@ from pyjs9 import JS9 as JS9_
 _JS9Refs = {}
 
 class JS9(JS9_):
-
-    def __init__(self, side=False, *args, **kwargs):
+    
+    def __init__(self, side=True, *args, **kwargs):
         """Start or connect to an instance of JS9
 
         Parameters:
