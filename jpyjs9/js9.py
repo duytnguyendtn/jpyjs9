@@ -99,8 +99,6 @@ class JS9(JS9_):
         
         else:
             logging.warning("Connecting to existing frontend")
-        
-
 
 
     def close(self):
