@@ -13,13 +13,13 @@ import logging
 logging.getLogger('root').setLevel(logging.ERROR)
 
 
-_JS9Refs = {}    
+_JS9Refs = {}
 
 class JS9(JS9_):
-    
+
     def __init__(self, side=False, *args, **kwargs):
         """Start or connect to an instance of JS9
-        
+
         Parameters:
         -----------
         host: 'http://localhost:2718',
@@ -37,7 +37,7 @@ class JS9(JS9_):
         # append the main docstring from parent
         JS9.__init__.__doc__ += JS9_.__init__.__doc__
 
-        
+
         if len(args) > 1:
             id = args[1]
             args = (args[0],) + args[2:]
@@ -45,20 +45,20 @@ class JS9(JS9_):
             id = kwargs.pop('id')
         else:
             id = str(uuid.uuid4())[:4]
-        
+
         if len(args) == 7:
             debug = args[6]
         elif 'debug' in kwargs:
             debug = kwargs['debug']
         else:
             debug = False
-        
+
         # extra parameter
         frame_url = kwargs.get('frame_url', '/js9')
         width  = kwargs.get('width', 600)
         height = kwargs.get('height', 700)
-        
-        
+
+
         ref = _JS9Refs.get(id, None)
         if ref is not None:
             if debug: print(f'Recovering instance {id}')
@@ -68,7 +68,7 @@ class JS9(JS9_):
         # attach the JS9 window
         html = f"<iframe src='{frame_url}/{id}' width={width} height={height}></iframe>"
         self.ipw_obj = ipw.widgets.HTML(value = html)
-        
+
         self.sc = None
         if side:
             # open a side window 
@@ -79,7 +79,7 @@ class JS9(JS9_):
         else:
             display(self.ipw_obj)
 
-        
+
         if ref is None:
             if debug: print(f'Starting a new instance {id}')
             _JS9Refs[id] = weakref.ref(self)
@@ -89,8 +89,8 @@ class JS9(JS9_):
             kwargs.pop(k, None)
         if debug: print(f'Calling parent for {id}')
         super(JS9, self).__init__(id=f'JS9-{id}', multi=True, *args, **kwargs)
-            
-            
+
+
     def close(self):
         # close the display as well as the js9 connection
         self.ipw_obj.close()
