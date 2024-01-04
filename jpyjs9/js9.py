@@ -41,17 +41,13 @@ class JS9(JS9_):
         if len(args) > 1:
             id = args[1]
             args = (args[0],) + args[2:]
-        elif 'id' in kwargs:
-            id = kwargs.pop('id')
         else:
-            id = str(uuid.uuid4())[:4]
+            id = kwargs.pop('id', str(uuid.uuid4())[:4])
 
         if len(args) == 7:
             debug = args[6]
-        elif 'debug' in kwargs:
-            debug = kwargs['debug']
         else:
-            debug = False
+            debug = kwargs.get('debug', False)
 
         if debug:
             logger = logging.getLogger()
