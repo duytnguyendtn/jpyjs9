@@ -17,7 +17,7 @@ JS9_PATH =  Path("E:\HEASARC\gitrepos\scieserver-js9\jpyjs9-fork\src\js9")
 class Js9Handler(ExtensionHandlerJinjaMixin, ExtensionHandlerMixin, JupyterHandler):
     @web.authenticated
     def get(self, jid='JS9'):
-        self.write(self.render_template("index.html", jid=jid))
+        self.write(self.render_template("index.html"))
 ## ---------------------------------------- ##
 
 
