@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling", "nodeenv", "hatch-build-scripts"]
+requires = ["hatchling", "nodeenv", "requests", "hatch-build-scripts"]
 build-backend = "hatchling.build"
 
 [project]
@@ -42,12 +42,20 @@ allow-direct-references = true
 exclude = [".git", ".ipynb_checkpoints"]
 
 [[tool.hatch.build.hooks.build-scripts.scripts]]
+work_dir = "."
+out_dir = "."
+commands = [
+    "python clone_js9.py"
+]
+artifacts = [
+]
+
+[[tool.hatch.build.hooks.build-scripts.scripts]]
 out_dir = "src"
 work_dir = "src"
 clean_out_dir = true
 commands = [
     "nodeenv -p",
-    "git clone -b multi https://github.com/duytnguyendtn/js9.git ./duyjs9"
 ]
 artifacts = [
 ]

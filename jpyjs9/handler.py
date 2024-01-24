@@ -1,3 +1,4 @@
+from sys import prefix
 from pathlib import Path
 
 from jupyter_server.extension.application import ExtensionApp, ExtensionAppJinjaMixin
@@ -8,7 +9,7 @@ from jupyter_server.extension.handler import (
     ExtensionHandlerMixin,
 )
 
-JS9_PATH =  Path("E:\HEASARC\gitrepos\scieserver-js9\jpyjs9-fork\src\js9")
+JS9_PATH = Path(prefix) / "src/js9"
 
 
 ## ---------------------------------------- ##
