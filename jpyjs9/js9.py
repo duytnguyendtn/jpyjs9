@@ -6,6 +6,9 @@ Some of the ideas were adopted from jjs9
 # ignore socketio connection error
 import logging
 #logging.getLogger('root').setLevel(logging.ERROR)
+import json
+import subprocess
+from urllib.parse import urlparse
 import uuid
 import weakref
 
@@ -56,7 +59,16 @@ class JS9(JS9_):
             logger.setLevel(logging.DEBUG)
 
         # extra parameter
-        frame_url = kwargs.get('frame_url', '/js9')
+        # Derive URL subfolder path from Jupyter URL:
+        try:
+            jupyter_url = json.loads(subprocess.check_output(["jupyter", "lab", "list", "--json"]))['url']
+            subdir_path = urlparse(jupyter_url).path
+            frame_url_fallback = subdir_path + "/js9"
+        except:
+            # Use our usual fallback frame url
+            frame_url_fallback = "/js9"
+        frame_url = kwargs.get('frame_url', frame_url_fallback)
+
         width  = kwargs.get('width', 600)
         height = kwargs.get('height', 700)
 
