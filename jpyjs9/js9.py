@@ -8,7 +8,7 @@ import logging
 #logging.getLogger('root').setLevel(logging.ERROR)
 import json
 import subprocess
-from urllib.parse import urlparse
+from urllib.parse import urljoin
 import uuid
 import weakref
 
@@ -62,8 +62,7 @@ class JS9(JS9_):
         # Derive URL subfolder path from Jupyter URL:
         try:
             jupyter_url = json.loads(subprocess.check_output(["jupyter", "lab", "list", "--json"]))['url']
-            subdir_path = urlparse(jupyter_url).path
-            frame_url_fallback = subdir_path + "/js9"
+            frame_url_fallback = urljoin(jupyter_url, "/js9")
         except:
             # Use our usual fallback frame url
             frame_url_fallback = "/js9"
