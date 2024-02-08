@@ -7,8 +7,8 @@ Some of the ideas were adopted from jjs9
 import logging
 #logging.getLogger('root').setLevel(logging.ERROR)
 import json
+from pathlib import Path
 import subprocess
-from urllib.parse import urljoin
 import uuid
 import weakref
 
@@ -60,13 +60,17 @@ class JS9(JS9_):
 
         # extra parameter
         # Derive URL subfolder path from Jupyter URL:
+        logging.debug("Evaluating default frame url...")
         try:
-            jupyter_url = json.loads(subprocess.check_output(["jupyter", "lab", "list", "--json"]))['url']
-            frame_url_fallback = urljoin(jupyter_url, "/js9")
+            jupyter_base_path = Path(json.loads(subprocess.check_output(["jupyter", "lab", "list", "--json"]))['base_url'])
+            frame_url_fallback = (jupyter_base_path / "js9").as_posix()
+            logging.debug("Successfully retrieved Jupyter base_url path")
         except:
             # Use our usual fallback frame url
             frame_url_fallback = "/js9"
+            logging.debug("Failed to retrieve Jupyter URL, using default fallback")
         frame_url = kwargs.get('frame_url', frame_url_fallback)
+        logging.debug(f"Using frame URL: {frame_url}")
 
         width  = kwargs.get('width', 600)
         height = kwargs.get('height', 700)
