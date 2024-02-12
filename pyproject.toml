@@ -43,20 +43,9 @@ allow-direct-references = true
 exclude = [".git", ".ipynb_checkpoints"]
 
 [[tool.hatch.build.hooks.build-scripts.scripts]]
-work_dir = "."
-out_dir = "."
 commands = [
-    "python clone_js9.py"
-]
-artifacts = [
-]
-
-[[tool.hatch.build.hooks.build-scripts.scripts]]
-out_dir = "src"
-work_dir = "src"
-clean_out_dir = true
-commands = [
-    "nodeenv -p",
+    "python clone_js9.py",
+    "python assist_node.py"
 ]
 artifacts = [
 ]
