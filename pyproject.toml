@@ -14,7 +14,7 @@ authors = [
 ]
 
 dependencies = [
-    'jupyter-server-proxy @ git+https://github.com/duytnguyendtn/jupyter-server-proxy@subprotocol',
+    'jupyter-server-proxy @ git+https://github.com/jupyterhub/jupyter-server-proxy',
     "python-socketio[client]",
     "socketIO-client",
     "sidecar",
