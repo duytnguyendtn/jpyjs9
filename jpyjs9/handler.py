@@ -12,6 +12,7 @@ JS9_PATH = Path(prefix) / "src/js9"
 if not JS9_PATH.exists():
     from appdirs import user_data_dir
     JS9_PATH = Path(user_data_dir(appname="jupyterjs9", appauthor="heasarc")) / "js9"
+logging.debug(f"Serving JS9 files from: {JS9_PATH}")
 
 
 ## ---------------------------------------- ##
