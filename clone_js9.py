@@ -10,7 +10,7 @@ import requests
 
 
 print("(clone_js9.py) Downloading JS9 Assets...")
-zip_request = requests.get("https://github.com/duytnguyendtn/js9/zipball/multi")
+zip_request = requests.get("https://github.com/duytnguyendtn/js9/zipball/jupyterjs9")
 
 def extract_js9(path):
     '''
